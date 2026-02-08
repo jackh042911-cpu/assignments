@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Assignments – Math</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f5f5">
+
+<style>
+/* ---------- LOW CPU MODE ---------- */
+* {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* ---------- BASIC STYLES ---------- */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    display: flex;
+    color: #111;
+}
+
+.sidebar {
+    position: fixed;
+    width: 70px;
+    height: 100vh;
+    background: #e0e0e0;
+    padding: 8px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+}
+
+.sidebar-btn {
+    background: #d6d6d6;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.main-content {
+    margin-left: 85px;
+    padding: 15px;
+    flex: 1;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+}
+
+/* ---------- SEARCH ---------- */
+.search-box {
+    display: block;
+    margin: 10px auto;
+    width: 95%;
+    max-width: 480px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+/* ---------- GAME BUTTONS ---------- */
+input[type="button"] {
+    width: 100%;
+    max-width: 520px;
+    margin: 4px auto;
+    display: block;
+    padding: 10px;
+    background: #cfcfcf;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* ---------- FAKE MATH OVERLAY ---------- */
+#fakeMath {
+    display: none;
+    padding: 20px;
+}
+
+.math-box {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar" id="sidebar">
+    <button class="sidebar-btn" onclick="panic()">PANIC</button>
+    <button class="sidebar-btn" onclick="toggleMath()">MATH</button>
+</div>
+
+<div class="main-content">
+
+    <h1>Assignments</h1>
+
+    <input
+        class="search-box"
+        type="text"
+        placeholder="Search…"
+        onkeyup="filterGames(this.value)"
+    >
+
+    <!-- REAL CONTENT -->
+    <div id="sections-container"></div>
+
+    <!-- FAKE MATH CONTENT -->
+    <div id="fakeMath">
+        <div class="math-box">
+            <h2>Math – Linear Equations</h2>
+            <p>Solve for x:</p>
+            <ul>
+                <li>2x + 4 = 12</li>
+                <li>3x − 9 = 0</li>
+                <li>5x = 20</li>
+            </ul>
+            <p>Show your work.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- GAME DATA -->
+<script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/games.js"></script>
+
+<script>
+/* ---------- SEARCH (LOW CPU) ---------- */
+function filterGames(text) {
+    text = text.toLowerCase();
+    var inputs = document.getElementsByTagName("input");
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].type === "button") {
+            inputs[i].style.display =
+                inputs[i].value.toLowerCase().indexOf(text) !== -1
+                ? "block"
+                : "none";
+        }
+    }
+}
+
+/* ---------- PANIC BUTTON ---------- */
+function panic() {
+    document.title = "Assignments – Google Classroom";
+    window.location.href = "https://classroom.google.com";
+}
+
+/* ESC KEY TRIGGER */
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        panic();
+    }
+});
+
+/* ---------- FAKE MATH TOGGLE ---------- */
+function toggleMath() {
+    var fake = document.getElementById("fakeMath");
+    var real = document.getElementById("sections-container");
+
+    if (fake.style.display === "block") {
+        fake.style.display = "none";
+        real.style.display = "block";
+        document.title = "Assignments – Math";
+    } else {
+        fake.style.display = "block";
+        real.style.display = "none";
+        document.title = "Assignments – Math";
+    }
+}
+</script>
+
+</body>
+</html>
